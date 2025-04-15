@@ -1,7 +1,7 @@
 package services
 
 import (
-	"taskmanager/models.go"
+	"taskmanager/models"
 	"time"
 )
 

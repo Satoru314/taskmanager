@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"taskmanager/models.go"
-	"taskmanager/services.go"
+	"taskmanager/models"
+	"taskmanager/services"
 
 	"github.com/labstack/echo/v4"
 )

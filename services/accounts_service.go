@@ -1,6 +1,6 @@
 package services
 
-import "taskmanager/models.go"
+import "taskmanager/models"
 
 func GetAccountService(accountID int) (resAccount models.Account, err error) {
 	// Simulate a service that retrieves an account by ID
