@@ -19,12 +19,6 @@ func main() {
 	e.PUT("/tasks/:id", controllers.PutTaskController)
 	e.DELETE("/tasks/:id", controllers.DeleteTaskController)
 
-	e.GET("/comments", controllers.GetCommentsController)
-	e.POST("/comments", controllers.PostCommentController)
-	e.GET("/comments/:id", controllers.GetCommentController)
-	e.PUT("/comments/:id", controllers.PutCommentController)
-	e.DELETE("/comments/:id", controllers.DeleteCommentController)
-
 	e.GET("/accounts/:id", controllers.GetAccountController)
 	e.POST("/accounts/:id", controllers.PostAccountController)
 	e.PUT("/accounts/:id", controllers.PutAccountController)

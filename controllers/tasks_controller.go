@@ -7,6 +7,7 @@ import (
 )
 
 func GetTasksController(c echo.Context) error {
+
 	return c.String(http.StatusOK, "Get Tasks Handler\n")
 }
 
