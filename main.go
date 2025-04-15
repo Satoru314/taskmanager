@@ -9,23 +9,20 @@ import (
 
 func main() {
 
-	e := echo.New()
+	c := echo.New()
 
-	e.GET("/", controllers.HelloHandler)
+	c.GET("/", controllers.HelloHandler)
 
-	e.GET("/tasks", controllers.GetTasksController)
-	e.POST("/tasks", controllers.PostTaskController)
-	e.GET("/tasks/:id", controllers.GetTaskController)
-	e.PUT("/tasks/:id", controllers.PutTaskController)
-	e.DELETE("/tasks/:id", controllers.DeleteTaskController)
+	c.GET("/tasks/:account_id", controllers.GetTasksHandler)
+	c.POST("/tasks/:account_id", controllers.PostTaskHandler)
+	c.PUT("/tasks/:task_id", controllers.PutTaskHandler)
+	c.DELETE("/tasks/:task_id", controllers.DeleteTaskHandler)
 
-	e.GET("/accounts/:id", controllers.GetAccountController)
-	e.POST("/accounts/:id", controllers.PostAccountController)
-	e.PUT("/accounts/:id", controllers.PutAccountController)
-	e.DELETE("/accounts/:id", controllers.DeleteAccountController)
-
-	e.GET("/admin/accounts", controllers.GetAccountsController)
+	c.GET("/accounts/:account_id", controllers.GetAccountHandler)
+	c.POST("/accounts", controllers.PostAccountHandler)
+	c.PUT("/accounts/:account_id", controllers.PutAccountHandler)
+	c.DELETE("/accounts/:account_id", controllers.DeleteAccountHandler)
 
 	log.Println("Starting server on :8080")
-	log.Fatal(e.Start(":8080"))
+	log.Fatal(c.Start(":8080"))
 }

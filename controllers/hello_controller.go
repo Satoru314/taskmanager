@@ -7,5 +7,5 @@ import (
 )
 
 func HelloHandler(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!\n")
+	return c.JSON(http.StatusOK, "Hello, World!\n")
 }
