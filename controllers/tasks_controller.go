@@ -5,18 +5,17 @@ import (
 	"strconv"
 
 	"taskmanager/models"
-	"taskmanager/services"
 
 	"github.com/labstack/echo/v4"
 )
 
-func GetTasksHandler(c echo.Context) error {
+func (con *MyAppControllers) GetTasksHandler(c echo.Context) error {
 	accountIDStr := c.Param("account_id")
 	accountID, err := strconv.Atoi(accountIDStr)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "Invalid account ID\n")
 	}
-	resTasks, err := services.GetTasksService(accountID)
+	resTasks, err := con.myAppServices.GetTasksService(accountID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, "Error retrieving tasks\n")
 	}
@@ -24,7 +23,7 @@ func GetTasksHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, resTasks)
 }
 
-func PostTaskHandler(c echo.Context) error {
+func (con *MyAppControllers) PostTaskHandler(c echo.Context) error {
 	accountIDStr := c.Param("account_id")
 	accountID, err := strconv.Atoi(accountIDStr)
 	if err != nil {
@@ -33,7 +32,7 @@ func PostTaskHandler(c echo.Context) error {
 	var reqTask models.Task
 	c.Bind(&reqTask)
 	reqTask.AccountID = accountID
-	resTask, err := services.PostTaskService(reqTask)
+	resTask, err := con.myAppServices.PostTaskService(reqTask)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, "Error creating task\n")
 	}
@@ -41,7 +40,7 @@ func PostTaskHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, resTask)
 }
 
-func PutTaskHandler(c echo.Context) error {
+func (con *MyAppControllers) PutTaskHandler(c echo.Context) error {
 	taskIDStr := c.Param("task_id")
 	taskID, err := strconv.Atoi(taskIDStr)
 	if err != nil {
@@ -50,7 +49,7 @@ func PutTaskHandler(c echo.Context) error {
 	var reqTask models.Task
 	c.Bind(&reqTask)
 	reqTask.TaskID = taskID
-	resTask, err := services.PutTaskService(reqTask)
+	resTask, err := con.myAppServices.PutTaskService(reqTask)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, "Error updating task\n")
 	}
@@ -58,13 +57,13 @@ func PutTaskHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, resTask)
 }
 
-func DeleteTaskHandler(c echo.Context) error {
+func (con *MyAppControllers) DeleteTaskHandler(c echo.Context) error {
 	taskIDStr := c.Param("task_id")
 	taskID, err := strconv.Atoi(taskIDStr)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "Invalid task ID\n")
 	}
-	err = services.DeleteTaskService(taskID)
+	err = con.myAppServices.DeleteTaskService(taskID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, "Error deleting task\n")
 	}

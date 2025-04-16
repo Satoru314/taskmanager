@@ -5,21 +5,7 @@ import (
 	"time"
 )
 
-func GetTaskService(accountID int) (resTask models.Task, err error) {
-	// Simulate a service that retrieves a task by account ID
-	// In a real application, this would involve database operations
-	resTask = models.Task{
-		TaskID:    1,
-		AccountID: accountID,
-		Title:     "Sample Task",
-		DueDate:   time.Now(),
-		Progress:  50,
-	}
-	return resTask, nil
-
-}
-
-func PostTaskService(reqTask models.Task) (resTask models.Task, err error) {
+func (s *MyAppServices) PostTaskService(reqTask models.Task) (resTask models.Task, err error) {
 	// Simulate a service that creates a new task
 	// In a real application, this would involve database operations
 	resTask = reqTask
@@ -27,20 +13,20 @@ func PostTaskService(reqTask models.Task) (resTask models.Task, err error) {
 	return resTask, nil
 }
 
-func PutTaskService(reqTask models.Task) (resTask models.Task, err error) {
+func (s *MyAppServices) PutTaskService(reqTask models.Task) (resTask models.Task, err error) {
 	// Simulate a service that updates an existing task
 	// In a real application, this would involve database operations
 	resTask = reqTask
 	return resTask, nil
 }
 
-func DeleteTaskService(taskID int) (err error) {
+func (s *MyAppServices) DeleteTaskService(taskID int) (err error) {
 	// Simulate a service that deletes a task by ID
 	// In a real application, this would involve database operations
 	return nil
 }
 
-func GetTasksService(accountID int) (resTasks []models.Task, err error) {
+func (s *MyAppServices) GetTasksService(accountID int) (resTasks []models.Task, err error) {
 	// Simulate a service that retrieves all tasks
 	// In a real application, this would involve database operations
 	resTasks = []models.Task{
