@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"taskmanager/controllers"
 	"taskmanager/services"
@@ -12,7 +11,7 @@ import (
 )
 
 var (
-	connStr = fmt.Sprintf("satoru:satoru@localhost:5432/taskmanager?sslmode=disable")
+	connStr = ("host=127.0.0.1 port=5432 user=postgres password=89maiumai dbname=taskmanager sslmode=disable")
 )
 
 func main() {
@@ -21,9 +20,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to the database: %v", err)
 	}
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("Failed to connect to the database: %v", err)
+	}
+	defer db.Close()
 	ser := services.NewMyAppServices(db)
 	con := controllers.NewMyAppControllers(ser)
-	defer db.Close()
 
 	c := echo.New()
 

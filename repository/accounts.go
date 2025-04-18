@@ -5,31 +5,39 @@ import (
 	"taskmanager/models"
 )
 
-func InsertAccount(db *sql.DB, account models.Account) (models.Account, error) {
-	// Simulate a repository that inserts a new account into the database
-	// In a real application, this would involve SQL operations
-	account.AccountID = 1 // Simulate an auto-generated ID
-	return account, nil
+func SelectAccount(db *sql.DB, accountID int) (resAccount models.Account, err error) {
+	const sqlStr = `SELECT account_name, path_hash FROM accounts WHERE account_id = $1;`
+	row := db.QueryRow(sqlStr, accountID)
+	err = row.Scan(&resAccount.AccountName, &resAccount.PathHash)
+	if err != nil {
+		return models.Account{}, err
+	}
+	resAccount.AccountID = accountID
+	return resAccount, nil
 }
 
-func SelectAccount(db *sql.DB, accountID int) (models.Account, error) {
-	// Simulate a repository that retrieves an account by ID from the database
-	// In a real application, this would involve SQL operations
-	account := models.Account{
-		AccountID:   accountID,
-		AccountName: "Sample Account",
+func InsertAccount(db *sql.DB, account models.Account) (models.Account, error) {
+	const sqlStr = `INSERT INTO accounts (account_name, path_hash) VALUES ($1, $2) RETURNING account_id;`
+	var accountID int
+	err := db.QueryRow(sqlStr, account.AccountName, account.PathHash).Scan(&accountID)
+	if err != nil {
+		return models.Account{}, err
 	}
+	account.AccountID = accountID
 	return account, nil
 }
 
 func UpdateAccount(db *sql.DB, account models.Account) (models.Account, error) {
-	// Simulate a repository that updates an existing account in the database
-	// In a real application, this would involve SQL operations
+	const sqlStr = `UPDATE accounts SET account_name = $1, path_hash = $2 WHERE account_id = $3;`
+	_, err := db.Exec(sqlStr, account.AccountName, account.PathHash, account.AccountID)
+	if err != nil {
+		return models.Account{}, err
+	}
 	return account, nil
 }
 
 func DeleteAccount(db *sql.DB, accountID int) error {
-	// Simulate a repository that deletes an account by ID from the database
-	// In a real application, this would involve SQL operations
-	return nil
+	const sqlStr = `DELETE FROM accounts WHERE account_id = $1;`
+	_, err := db.Exec(sqlStr, accountID)
+	return err
 }
