@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	connStr = ("host=127.0.0.1 port=5432 user=postgres password=89maiumai dbname=taskmanager sslmode=disable")
+	connStr = ("host=127.0.0.1 port=5434 user=docker password=docker dbname=task_manager sslmode=disable")
 )
 
 func main() {

@@ -2,11 +2,11 @@ package services
 
 import (
 	"taskmanager/models"
-	"taskmanager/repository"
+	"taskmanager/repositorys"
 )
 
 func (s *MyAppServices) GetAccountService(accountID int) (resAccount models.Account, err error) {
-	resAccount, err = repository.SelectAccount(s.db, accountID)
+	resAccount, err = repositorys.SelectAccount(s.db, accountID)
 	if err != nil {
 		return models.Account{}, err
 	}
@@ -14,7 +14,7 @@ func (s *MyAppServices) GetAccountService(accountID int) (resAccount models.Acco
 }
 
 func (s *MyAppServices) PostAccountService(reqAccount models.Account) (resAccount models.Account, err error) {
-	resAccount, err = repository.InsertAccount(s.db, reqAccount)
+	resAccount, err = repositorys.InsertAccount(s.db, reqAccount)
 	if err != nil {
 		return models.Account{}, err
 	}
@@ -22,7 +22,7 @@ func (s *MyAppServices) PostAccountService(reqAccount models.Account) (resAccoun
 }
 
 func (s *MyAppServices) PutAccountService(reqAccount models.Account) (resAccount models.Account, err error) {
-	resAccount, err = repository.UpdateAccount(s.db, reqAccount)
+	resAccount, err = repositorys.UpdateAccount(s.db, reqAccount)
 	if err != nil {
 		return models.Account{}, err
 	}
@@ -30,6 +30,6 @@ func (s *MyAppServices) PutAccountService(reqAccount models.Account) (resAccount
 }
 
 func (s *MyAppServices) DeleteAccountService(accountID int) (err error) {
-	err = repository.DeleteAccount(s.db, accountID)
+	err = repositorys.DeleteAccount(s.db, accountID)
 	return err
 }
